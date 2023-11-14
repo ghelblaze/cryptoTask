@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FavoriteCoinsList from './views/favoritePage/favoriteCoinsList';
+import Login from './views/loginPage/login';
+import Register from './views/registerPage/register';
+import Home from './views/homePage/home';
+import NewsFeed from './views/newsPage/newsFeed';
+import ProfileEdit from './views/profilePage/profileEdit';
+import Trending from './components/Trending';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/favoritecoins" element={<FavoriteCoinsList />} />
+        <Route path="/news" element={<NewsFeed />} />
+        <Route path="/editprofile" element={<ProfileEdit />} />
+        <Route path="/trend" element={<Trending />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
