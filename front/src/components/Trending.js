@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./Trending.css";
-import millify from "millify";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const Trending = () => {
   const [trending, setTrending] = useState([]);
@@ -27,23 +28,39 @@ const Trending = () => {
     fetchTrending();
     fetchBTCprice();
   }, []);
+  const items = trending.map((coin, idx) => {
+    return (
+      <div key={idx} className="mx-5 ">
+        <img src={coin.item.small} alt="coin_logo" />
+        <br />
+        <span>{coin.item.name}</span>
+        <br />
+        <span>{coin.item.symbol}</span>
+        <br />
+        <span>{(coin.item.price_btc * btcPrice).toFixed(9)} $</span>
+        <br />
+      </div>
+    );
+  });
   return (
-    <div className="trending_container">
-      {console.log(trending)}
-      {trending.map((coin, idx) => {
-        return (
-          <div key={idx}>
-            <img src={coin.item.small} alt="coin_logo" />
-            <br />
-            <span>{coin.item.name}</span>
-            <br />
-            <span>{coin.item.symbol}</span>
-            <br />
-            <span>{(coin.item.price_btc * btcPrice).toFixed(2)} $</span>
-            <br />
-          </div>
-        );
-      })}
+    <div className=" bg-dark d-flex ">
+      <AliceCarousel
+        mouseTracking
+        infinite
+        autoPlay={true}
+        autoPlayInterval={2000}
+        disableButtonsControls
+        responsive={{
+          0: {
+            items: 1,
+          },
+          1024: {
+            items: 3,
+            itemsFit: "contain",
+          },
+        }}
+        items={items}
+      />
     </div>
   );
 };

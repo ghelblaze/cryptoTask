@@ -1,19 +1,20 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FavoriteCoinsList from './views/favoritePage/favoriteCoinsList';
-import Login from './views/loginPage/login';
-import Register from './views/registerPage/register';
-import Home from './views/homePage/home';
-import NewsFeed from './views/newsPage/newsFeed';
-import ProfileEdit from './views/profilePage/profileEdit';
-import Trending from './components/Trending';
-import Navbar from './components/Navbar';
+import FavoriteCoinsList from "./views/favoritePage/favoriteCoinsList";
+import Login from "./views/loginPage/login";
+import Register from "./views/registerPage/register";
+import Home from "./views/homePage/home";
+import NewsFeed from "./views/newsPage/newsFeed";
+import ProfileEdit from "./views/profilePage/profileEdit";
+import Trending from "./components/Trending";
+import Navbar from "./components/Navbar";
+import CoinDetails from "./views/CoinDetails/CoinDetails";
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
-    
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -22,6 +23,7 @@ function App() {
         <Route path="/news" element={<NewsFeed />} />
         <Route path="/editprofile" element={<ProfileEdit />} />
         <Route path="/trend" element={<Trending />} />
+        <Route path="/coin/:id" element={<CoinDetails />} />
       </Routes>
     </BrowserRouter>
   );

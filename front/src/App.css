@@ -1,5 +1,12 @@
 div{
   text-align: center;
-  color: red;
+  color: rgb(238, 234, 234);
 }
 
+a{
+  text-decoration: none;
+}
+a:focus{
+  color:aqua;
+  text-decoration: underline;
+}
