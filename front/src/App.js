@@ -7,10 +7,13 @@ import Home from './views/homePage/home';
 import NewsFeed from './views/newsPage/newsFeed';
 import ProfileEdit from './views/profilePage/profileEdit';
 import Trending from './components/Trending';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <BrowserRouter>
+    <Navbar/>
+    
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Trending from '../../components/Trending';
 
 const Home = () => {
   
@@ -20,6 +21,9 @@ const Home = () => {
 
 	return (
     <div className="App">
+      <div>
+        <Trending/>
+      </div>
       <h1>All Cryptocurrencies</h1>
       <input
         type="text"
