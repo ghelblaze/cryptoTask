@@ -2,17 +2,18 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import millify from "millify";
+import Chart from "../../components/Chart";
 
 const CoinDetails = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   const fetchCoin = async () => {
     await axios
       .get("https://api.coingecko.com/api/v3/coins/" + id)
       .then((res) => {
         setCoin(res.data);
-        setLoading(false);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -23,12 +24,12 @@ const CoinDetails = () => {
 
   return (
     <div>
-      <div className="aside">
+      <div className="aside col-3">
         <div>
           <img src={coin.image.small} alt="coin_logo" />
           <p>{coin.name}</p>
           <p>Description:</p>
-          <p dangerouslySetInnerHTML={{ __html: coin.description.en }} />
+          <p>{coin.description.en.substring(0, 100)}</p>
         </div>
         <dl>
           <dt>Market Rank</dt>
@@ -36,30 +37,35 @@ const CoinDetails = () => {
         </dl>
         <dl>
           <dt>Market Cap</dt>
-          <dd></dd>
+          <dd>{millify(coin.market_data.market_cap.usd)}</dd>
         </dl>
         <dl>
           <dt>Volume 24H</dt>
-          <dd></dd>
+          <dd>{millify(coin.market_data.total_volume.usd)}</dd>
         </dl>
         <dl>
           <dt>Total Supply</dt>
-          <dd></dd>
+          <dd>{millify(coin.market_data.total_supply)}</dd>
         </dl>
         <dl>
           <dt>Max Supply</dt>
-          <dd></dd>
+          <dd>{millify(coin.market_data.max_supply)}</dd>
         </dl>
         <dl>
           <dt>24h Low / 24h High</dt>
-          <dd></dd>
+          <dd>
+            {millify(coin.market_data.low_24h.usd)}/
+            {millify(coin.market_data.high_24h.usd)}
+          </dd>
         </dl>
         <dl>
           <dt>ATH</dt>
-          <dd></dd>
+          <dd>{millify(coin.market_data.ath.usd)}</dd>
         </dl>
       </div>
-      <div className="chart"></div>
+      <div className="chart col-9">
+        <Chart id={id} />
+      </div>
     </div>
   );
 };
