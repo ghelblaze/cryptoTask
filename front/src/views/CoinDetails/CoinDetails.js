@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import millify from "millify";
 import Chart from "../../components/Chart";
 
@@ -9,12 +9,13 @@ const CoinDetails = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/bitcoin"
+          "https://api.coingecko.com/api/v3/coins/" + id
         );
         setCoin(response.data);
 
@@ -35,7 +36,7 @@ const CoinDetails = () => {
       {loading ? (
         <p>Loading Data...</p>
       ) : (
-        <div>
+        <div className="d-flex">
           <div className="aside col-3">
             <div>
               <img src={coin.image.small} alt="coin_logo" />
