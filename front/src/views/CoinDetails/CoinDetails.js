@@ -42,7 +42,7 @@ const CoinDetails = () => {
               <img src={coin.image.small} alt="coin_logo" />
               <p>{coin.name}</p>
               <p>Description:</p>
-              <p>{coin.description.en.substring(0, 100)}</p>
+              <p dangerouslySetInnerHTML={{ __html: coin.description.en }} />
             </div>
             <dl>
               <dt>Market Rank</dt>

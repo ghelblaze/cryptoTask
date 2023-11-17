@@ -77,7 +77,7 @@ const Home = () => {
               return (
                 <tr
                   key={idx}
-                  className="mb-2 "
+                  className="mb-2 tableRow"
                   onClick={() => navigate("/coin/" + val.id)}
                 >
                   <td className="rank">{val.market_cap_rank}</td>

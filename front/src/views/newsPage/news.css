@@ -1,0 +1,20 @@
+.news-container{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 1fr;
+    padding: 30px;
+}
+.newsImg{
+    height: 40%;
+}
+.morebtnlink{
+    text-decoration: none;
+    color: aliceblue;
+}
+.morebtnlink:focus{
+    text-decoration: none;
+}
+.moreBTN{
+    margin-bottom: 10px;
+}

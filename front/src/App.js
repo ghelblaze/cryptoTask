@@ -9,7 +9,6 @@ import ProfileEdit from "./views/profilePage/profileEdit";
 import Trending from "./components/Trending";
 import Navbar from "./components/Navbar";
 import CoinDetails from "./views/CoinDetails/CoinDetails";
-import Chart from "./components/Chart";
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         <Route path="/editprofile" element={<ProfileEdit />} />
         <Route path="/trend" element={<Trending />} />
         <Route path="/coin/:id" element={<CoinDetails />} />
-        <Route path="/chart/:id" element={<Chart />} />
       </Routes>
     </BrowserRouter>
   );

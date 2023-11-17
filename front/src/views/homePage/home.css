@@ -6,3 +6,6 @@
     cursor: pointer;
     transition: 0.8s;
 }
+.tableRow{
+    cursor: pointer;
+}
