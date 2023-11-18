@@ -23,11 +23,10 @@ const NewsFeed = () => {
               alt="newspic"
               className="card-img-top newsImg"
             />
-            <div className="card-body">
-              <h5 className="card-title">{news.title} </h5>
-              <p className="card-text">{news.description.substring(0, 100)} </p>
-
-              <button className="btn btn-primary moreBTN ">
+            <div className="card-body cardBody">
+              <h5 className="card-title text-start mb-5">{news.title} </h5>
+              <p className="card-text text-start">
+                {news.description.substring(0, 100)}{" "}
                 <a
                   href={news.url}
                   rel="external noreferrer"
@@ -36,7 +35,7 @@ const NewsFeed = () => {
                 >
                   more...
                 </a>
-              </button>
+              </p>{" "}
             </div>
           </div>
         );

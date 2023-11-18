@@ -11,16 +11,24 @@ const Navbar = () => {
       </div>
       <ul className="navbar gap-5">
         <li>
-          <Link to="/home">HOME</Link>
+          <Link to="/home" className="nav-link">
+            HOME
+          </Link>
         </li>
         <li>
-          <Link to="/favoritecoins">Favorites</Link>
+          <Link to="/favoritecoins" className="nav-link">
+            Favorites
+          </Link>
         </li>
         <li>
-          <Link to="/news">News</Link>
+          <Link to="/news" className="nav-link">
+            News
+          </Link>
         </li>
         <li>
-          <Link to="/editprofile">Profile</Link>
+          <Link to="/editprofile" className="nav-link">
+            Profile
+          </Link>
         </li>
       </ul>
     </nav>

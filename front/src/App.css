@@ -8,5 +8,7 @@ a{
 }
 a:focus{
   color:aqua;
-  text-decoration: underline;
+  text-decoration:none;
+  transform: scale(1.5);
+  transition: transform 0.3s ease;
 }

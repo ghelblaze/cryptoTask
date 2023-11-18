@@ -10,11 +10,11 @@
 }
 .morebtnlink{
     text-decoration: none;
-    color: aliceblue;
+    color: rgb(42, 152, 248);
 }
 .morebtnlink:focus{
     text-decoration: none;
 }
-.moreBTN{
-    margin-bottom: 10px;
+.cardBody{
+    height: 60%;
 }
