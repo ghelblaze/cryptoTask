@@ -2,4 +2,43 @@ li{
     list-style-type: none;
 
 }
+.dropdownMenu {
+  position: relative;
+  display: inline-block;
+}
 
+.dropBTN {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropContent {
+  display: none;
+  position: absolute;
+  background-color: #221c1c;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0px;
+  
+  padding: 10px;
+}
+
+.dropContent li {
+  padding: 2px 6px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  
+}
+.dropContent > :first-child{
+    border-bottom: 1px solid white;
+}
+
+.dropdownMenu:hover .dropContent {
+  background-color: #2e2929;
+  display: block;
+}

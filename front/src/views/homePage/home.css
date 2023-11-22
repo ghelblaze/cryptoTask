@@ -9,3 +9,34 @@
 .tableRow{
     cursor: pointer;
 }
+.fav{
+    width: 30px;
+}
+.width{
+    width: 80%;
+}
+.logo{ 
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap:10px;
+    align-items: center;
+    padding: 10px 0;
+}
+.favBTN{
+    align-self: center;
+    width: 20%;
+    height: 50%;
+}
+.logodata{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.coinName{
+    margin-bottom: 0;
+}
+tbody tr{
+    border-bottom: 1px solid grey;
+}

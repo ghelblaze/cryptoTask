@@ -49,17 +49,16 @@ function Register() {
       navigate("/");
     } catch (error) {
       console.error("Error Register:", error);
-     
     }
   };
 
   return (
-    <div >
-      <div>
-        <h2>Create a new acoount</h2>
+    <div className="m-auto">
+      <div className="mb-5">
+        <h2>Create a new acount</h2>
       </div>
-      <div>
-        <div>
+      <div className="container  ">
+        <div className="row col-md-4 ">
           <label>First Name:</label>
           <input
             type="text"
@@ -69,7 +68,7 @@ function Register() {
             required
           />
         </div>
-        <div>
+        <div className="row col-md-4">
           <label>Last Name:</label>
           <input
             type="text"
@@ -79,7 +78,7 @@ function Register() {
             required
           />
         </div>
-        <div>
+        <div className="row col-md-4">
           <label>Email:</label>
           <input
             type="email"
@@ -89,7 +88,7 @@ function Register() {
             required
           />
         </div>
-        <div>
+        <div className="row col-md-4">
           <label>Password:</label>
           <input
             type="password"
@@ -99,7 +98,7 @@ function Register() {
             required
           />
         </div>
-        <div>
+        <div className="row col-md-4">
           <label>Confirm Password:</label>
           <input
             type="password"
@@ -109,7 +108,7 @@ function Register() {
             required
           />
         </div>
-        <button onClick={handleSignUp}>
+        <button className="mt-5" onClick={handleSignUp}>
           Register
         </button>
       </div>

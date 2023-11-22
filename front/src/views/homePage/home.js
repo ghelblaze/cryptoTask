@@ -12,6 +12,10 @@ const Home = () => {
   const [listLength, setlistLength] = useState(100);
   const navigate = useNavigate();
 
+  const handleFavs = async (coindId) => {
+    await axios.put("http://localhost:8000/api/addToFavorites", { coindId });
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -55,7 +59,7 @@ const Home = () => {
         </select>
       </div>
 
-      <table className="mx-auto mt-5 table table-dark table-hover col-xl-6 ">
+      <table className="mx-auto mt-5  table-dark table-hover  width ">
         <thead>
           <tr>
             <td>Rank</td>
@@ -81,9 +85,18 @@ const Home = () => {
                   onClick={() => navigate("/coin/" + val.id)}
                 >
                   <td className="rank">{val.market_cap_rank}</td>
+
                   <td className="logo">
-                    <img src={val.image} alt="logo" width="30px" />
-                    <p>{val.name}</p>
+                    <button
+                      className="favBTN"
+                      onClick={() => handleFavs(val.id)}
+                    >
+                      Add fav.
+                    </button>
+                    <div className="logodata">
+                      <img src={val.image} alt="logo" width="30px" />
+                      <p className="coinName">{val.name}</p>
+                    </div>
                   </td>
                   <td className="symbol">{val.symbol}</td>
                   <td>{millify(val.market_cap)}$</td>

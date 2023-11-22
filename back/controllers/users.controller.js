@@ -1,7 +1,7 @@
-const User = require ('../models/users.model')
-const bcrypt = require ('bcrypt')
-const jwt = require ('jsonwebtoken')
-const SECRET = process.env.SECRET_KEY
+const User = require("../models/users.model");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const SECRET = process.env.SECRET_KEY;
 
 module.exports = {
   findAll: (req, res) => {
@@ -11,7 +11,6 @@ module.exports = {
   },
   registerUser: async (req, res) => {
     try {
-      
       const newUser = await User.create(req.body);
       const userToken = jwt.sign(
         { id: newUser._id, email: newUser.email },
@@ -56,5 +55,21 @@ module.exports = {
   logoutUser: (req, res) => {
     res.clearCookie("userToken");
     res.json({ msg: "logout!" });
+  },
+  addToFavorites: async (req, res) => {
+    const { userId, coinId } = req.body;
+
+    try {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { favorites: coinId } },
+        { new: true }
+      );
+
+      res.json(user.favorites);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   },
 };

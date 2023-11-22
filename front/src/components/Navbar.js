@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/hub.png";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    axios
+      .get("http://localhost:8000/api/logout", { withCredentials: true })
+      .then((res) => {
+        console.log(res.data.msg);
+        navigate("/");
+      })
+
+      .catch((err) => console.log(err));
+  };
+
   return (
     <nav className="navbar bg-dark px-4 ">
       <div>
@@ -25,10 +38,12 @@ const Navbar = () => {
             News
           </Link>
         </li>
-        <li>
-          <Link to="/editprofile" className="nav-link">
-            Profile
-          </Link>
+        <li className="dropdownMenu ">
+          <Link className="dropBTN nav-link">Profile</Link>
+          <ul className="dropContent">
+            <li onClick={() => navigate("/editprofile")}>Settings</li>
+            <li onClick={() => handleLogout()}>Logout</li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -36,3 +51,20 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+{
+  /* <li className="dropdown">
+  <Link
+    className="nav-link dropdown-toggle btn "
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Profile
+  </Link>
+  <ul className="dropdown-menu">
+    <li>Settings</li>
+    <li>Logout</li>
+  </ul>
+</li> */
+}
