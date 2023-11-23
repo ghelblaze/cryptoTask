@@ -19,7 +19,7 @@ module.exports = {
       );
       res
         .status(201)
-        .cookie("userToken", userToken, { httpOnly: true })
+        .cookie("userToken", userToken, { httpOnly: false })
         .json({ message: "user Created" });
     } catch (error) {
       res.status(400).json(error);
@@ -45,7 +45,7 @@ module.exports = {
         );
         res
           .status(201)
-          .cookie("userToken", userToken, { httpOnly: true })
+          .cookie("userToken", userToken, { httpOnly: false })
           .json({ msg: "user Logged" });
       }
     } catch (error) {
@@ -57,19 +57,33 @@ module.exports = {
     res.json({ msg: "logout!" });
   },
   addToFavorites: async (req, res) => {
-    const { userId, coinId } = req.body;
-
+    const { coinId } = req.body;
+    const userId = req.userId;
+    console.log("userid:", userId);
     try {
-      const user = await User.findByIdAndUpdate(
-        userId,
-        { $addToSet: { favorites: coinId } },
-        { new: true }
-      );
+      // Find the user by ID in the database
+      const user = await User.findById(userId);
+      console.log("user data:", user);
+      console.log("coind id:", coinId);
+      console.log("favorites before push:", user.favorites);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      if (!user.favorites.includes(coinId)) {
+        return console.log("coin doesnt already exsit in favorites");
+      }
 
-      res.json(user.favorites);
+      user.favorites.push(coinId);
+      console.log("favorites.user after push", user.favorites);
+      await user.save();
+      res.json({
+        message: userId,
+        success: true,
+        favorites: user.favorites,
+      });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ success: false, error: userId });
     }
   },
 };

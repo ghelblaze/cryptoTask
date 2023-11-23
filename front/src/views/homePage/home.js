@@ -12,8 +12,26 @@ const Home = () => {
   const [listLength, setlistLength] = useState(100);
   const navigate = useNavigate();
 
-  const handleFavs = async (coindId) => {
-    await axios.put("http://localhost:8000/api/addToFavorites", { coindId });
+  const handleFavs = async (coinId) => {
+    console.log(coinId);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/addToFavorites",
+        { coinId },
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("Coin added to favorites:", data);
+      } else {
+        console.error("Failed to add coin to favorites");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {
@@ -82,7 +100,7 @@ const Home = () => {
                 <tr
                   key={idx}
                   className="mb-2 tableRow"
-                  onClick={() => navigate("/coin/" + val.id)}
+                  /* onClick={() => navigate("/coin/" + val.id)} */
                 >
                   <td className="rank">{val.market_cap_rank}</td>
 
