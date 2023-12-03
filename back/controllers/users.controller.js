@@ -4,22 +4,17 @@ const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET_KEY;
 
 module.exports = {
-  findAll: (req, res) => {
-    User.find()
-      .then((allUsers) => res.json(allUsers))
-      .catch((err) => res.status(400).json(err));
-  },
   registerUser: async (req, res) => {
     try {
       const newUser = await User.create(req.body);
       const userToken = jwt.sign(
         { id: newUser._id, email: newUser.email },
         SECRET,
-        { expiresIn: "1d" }
+        { expiresIn: "10d" }
       );
       res
         .status(201)
-        .cookie("userToken", userToken, { httpOnly: false })
+        .cookie("userToken", userToken, { httpOnly: true })
         .json({ message: "user Created" });
     } catch (error) {
       res.status(400).json(error);
@@ -27,29 +22,33 @@ module.exports = {
   },
   loginUser: async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
+    console.log(user);
     if (!user) {
-      res.status(400).json({ error: "invalid mail and password" });
+      return res.status(400).json({ error: "user not found" });
     }
     try {
       const isPasswordValid = await bcrypt.compare(
         req.body.password,
         user.password
       );
+      console.log(req.body.password);
+      console.log(user.password);
+      console.log(isPasswordValid);
       if (!isPasswordValid) {
-        res.statut(400).json({ error: "invalid mail or password" });
+        res.status(400).json({ error: "invalid mail or or password" });
       } else {
         const userToken = jwt.sign(
           { id: user._id, email: user.email },
           SECRET,
-          { expiresIn: "1d" }
+          { expiresIn: "10d" }
         );
         res
           .status(201)
-          .cookie("userToken", userToken, { httpOnly: false })
+          .cookie("userToken", userToken, { httpOnly: true })
           .json({ msg: "user Logged" });
       }
     } catch (error) {
-      res.status(400).json({ error: "invalid mail / password" });
+      res.status(500).json({ error: "invalid mail // password" });
     }
   },
   logoutUser: (req, res) => {
@@ -64,26 +63,38 @@ module.exports = {
       // Find the user by ID in the database
       const user = await User.findById(userId);
       console.log("user data:", user);
-      console.log("coind id:", coinId);
       console.log("favorites before push:", user.favorites);
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      if (!user.favorites.includes(coinId)) {
-        return console.log("coin doesnt already exsit in favorites");
+
+      if (user.favorites.includes(coinId)) {
+        return console.log("coin already exist in favorites");
       }
 
       user.favorites.push(coinId);
-      console.log("favorites.user after push", user.favorites);
       await user.save();
       res.json({
         message: userId,
         success: true,
         favorites: user.favorites,
       });
+      console.log(user.favorites);
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: userId });
+    }
+  },
+  getFavorites: async (req, res) => {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    try {
+      if (user.favorites.length == 0) {
+        return "You don't have Favorite coins yet";
+      } else {
+        res.json(user.favorites);
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ success: false, error: "Error while loading Favorites" });
     }
   },
 };

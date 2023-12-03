@@ -27,7 +27,6 @@ const UserSchema = new mongoose.Schema(
     },
     favorites: {
       type: [String],
-      default: [],
     },
   },
   { timestamps: true }
@@ -38,8 +37,13 @@ UserSchema.virtual("confirmPassword")
   .set((value) => (this._confirmPassword = value));
 
 UserSchema.pre("validate", function (next) {
-  if (this.password !== this.confirmPassword) {
-    this.invalidate("confirmPassword", "Password must match confirm password");
+  if (this.isModified("password") || this.isModified("confirmPassword")) {
+    if (this.password !== this.confirmPassword) {
+      this.invalidate(
+        "confirmPassword",
+        "Password must match confirm password"
+      );
+    }
   }
   next();
 });

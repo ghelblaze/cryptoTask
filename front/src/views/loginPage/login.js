@@ -17,7 +17,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post(
         "http://localhost:8000/api/login",
@@ -35,7 +35,7 @@ function Login() {
   };
 
   return (
-    <div >
+    <div>
       <h2>Welcome to the Crypto Hub</h2>
       <hr />
       <div>
@@ -46,13 +46,10 @@ function Login() {
           value={email}
           onChange={handleEmailChange}
           required
-          
         />
       </div>
+      <div></div>
       <div>
-        
-      </div>
-      <div >
         <label>Password:</label>
         <input
           type="password"
@@ -60,19 +57,14 @@ function Login() {
           value={password}
           onChange={handlePasswordChange}
           required
-          
         />
       </div>
-      
-      <button onClick={handleLogin}>
-        Login
-      </button>
+
+      <button onClick={handleLogin}>Login</button>
       <div>
         <p>
           Don't have an account yet???{" "}
-          <button onClick={() => navigate("/register")}>
-            Create account
-          </button>{" "}
+          <button onClick={() => navigate("/register")}>Create account</button>{" "}
         </p>
       </div>
     </div>
