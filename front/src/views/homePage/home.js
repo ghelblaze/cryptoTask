@@ -10,7 +10,9 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [crypto, setCrypto] = useState([]);
   const [listLength, setlistLength] = useState(100);
-  const navigate = useNavigate;
+  const [favoriteCoins, setFavoriteCoins] = useState([]);
+  const [toggleAdd, setToggleAdd] = useState(true);
+
   const star = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +53,31 @@ const Home = () => {
       if (response.status === 200) {
         const data = response.data;
         console.log("Coin added to favorites:", data);
+        setToggleAdd(!toggleAdd);
       } else {
         console.error("Failed to add coin to favorites");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  const fetchFavorites = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/fetchfavorites",
+
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("list of favorite coins:", data);
+        setFavoriteCoins(data);
+        console.log(favoriteCoins);
+      } else {
+        console.error("Failed to fetch favorite coins");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -68,7 +93,8 @@ const Home = () => {
         setCrypto(res.data);
         console.log(res.data);
       });
-  }, [listLength]);
+    fetchFavorites();
+  }, [listLength, toggleAdd]);
 
   return (
     <div className="App bg-dark mx-auto">
@@ -126,7 +152,9 @@ const Home = () => {
                 <tr key={idx} className="mb-2 tableRow">
                   <td className="rank">{val.market_cap_rank}</td>
                   <td>
-                    <div onClick={() => handleFavs(val.id)}>{plus}</div>
+                    <div onClick={() => handleFavs(val.id)}>
+                      {favoriteCoins.includes(val.id) ? star : plus}
+                    </div>
                   </td>
                   <td className="logo">
                     <div className="logodata">

@@ -7,4 +7,5 @@ module.exports = (app) => {
   app.get("/api/logout", authenticate, UsersController.logoutUser);
   app.post("/api/addToFavorites", authenticate, UsersController.addToFavorites);
   app.get("/api/favorites", authenticate, UsersController.getFavorites);
+  app.get("/api/fetchfavorites", authenticate, UsersController.fetchFavorites);
 };

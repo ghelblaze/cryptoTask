@@ -55,6 +55,15 @@ module.exports = {
     res.clearCookie("userToken");
     res.json({ msg: "logout!" });
   },
+  fetchFavorites: async (req, res) => {
+    const userId = req.userId;
+    try {
+      const user = await User.findById(userId);
+      return res.status(200).json(user.favorites);
+    } catch (error) {
+      res.status(500).json({ success: false, error: error });
+    }
+  },
   addToFavorites: async (req, res) => {
     const { coinId } = req.body;
     const userId = req.userId;
