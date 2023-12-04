@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./login.css";
+import backGroung from "../../assets/loggin_backgrnd.jpeg";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -38,34 +40,44 @@ function Login() {
     <div>
       <h2>Welcome to the Crypto Hub</h2>
       <hr />
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div></div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
+      <div className="loggin_container">
+        <div className="field">
+          <input
+            type="email"
+            placeholder=""
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+          <label>E-mail</label>
+        </div>
 
-      <button onClick={handleLogin}>Login</button>
-      <div>
-        <p>
-          Don't have an account yet???{" "}
-          <button onClick={() => navigate("/register")}>Create account</button>{" "}
-        </p>
+        <div className="field">
+          <input
+            type="password"
+            placeholder=""
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+          <label>Password</label>
+        </div>
+
+        <button className="loggin-btn" onClick={handleLogin}>
+          Login
+        </button>
+        <div>
+          <p>
+            Don't have an account yet???
+            <br />
+            <button
+              className="create_acc_btn"
+              onClick={() => navigate("/register")}
+            >
+              Create account
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

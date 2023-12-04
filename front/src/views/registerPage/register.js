@@ -56,59 +56,60 @@ function Register() {
     <div className="m-auto">
       <div className="mb-5">
         <h2>Create a new acount</h2>
+        <hr />
       </div>
-      <div className="container  ">
-        <div className="row col-md-4 ">
-          <label>First Name:</label>
+      <div className="loggin_container  ">
+        <div className="field">
+          <label>First Name</label>
           <input
             type="text"
-            placeholder="Enter your first name"
+            placeholder=""
             value={firstName}
             onChange={handleFirstNameChange}
             required
           />
         </div>
-        <div className="row col-md-4">
-          <label>Last Name:</label>
+        <div className="field">
+          <label>Last Name</label>
           <input
             type="text"
-            placeholder="Enter your last name"
+            placeholder=""
             value={lastName}
             onChange={handleLastNameChange}
             required
           />
         </div>
-        <div className="row col-md-4">
-          <label>Email:</label>
+        <div className="field">
+          <label>Email</label>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder=""
             value={email}
             onChange={handleEmailChange}
             required
           />
         </div>
-        <div className="row col-md-4">
-          <label>Password:</label>
+        <div className="field">
+          <label>Password</label>
           <input
             type="password"
-            placeholder="Enter your password"
+            placeholder=""
             value={password}
             onChange={handlePasswordChange}
             required
           />
         </div>
-        <div className="row col-md-4">
-          <label>Confirm Password:</label>
+        <div className="field">
+          <label>Confirm Password</label>
           <input
             type="password"
-            placeholder="Confirm your password"
+            placeholder=""
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             required
           />
         </div>
-        <button className="mt-5" onClick={handleSignUp}>
+        <button className="mt-5 loggin-btn" onClick={handleSignUp}>
           Register
         </button>
       </div>
