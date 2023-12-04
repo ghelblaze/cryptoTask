@@ -2,12 +2,27 @@ import axios from "axios";
 import millify from "millify";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { deleteFavCoin } from "../../../../back/controllers/users.controller";
 
 const FavoriteCoinsList = () => {
   const navigate = useNavigate();
   const [favCoinsData, setFavCoinsData] = useState([]);
   const [loadState, setLoadState] = useState(false);
-
+  const deleteCoin = async (coinId) => {
+    try {
+      const coinDeleted = async () =>
+        await axios.post(
+          "http://localhost:8000/api/deleteFavCoin",
+          {
+            coinId,
+          },
+          { withCredentials: true }
+        );
+      console.log(coinDeleted.data);
+    } catch (error) {
+      console.error("Error deleting Coin:", error);
+    }
+  };
   useEffect(() => {
     const fetchFavoriteCoins = async () => {
       try {
@@ -42,6 +57,7 @@ const FavoriteCoinsList = () => {
           <thead>
             <tr>
               <td>Rank</td>
+              <td>favorite</td>
               <td>Name</td>
               <td>Symbol</td>
               <td>Market Cap</td>
@@ -59,7 +75,9 @@ const FavoriteCoinsList = () => {
                   onClick={() => navigate("/coin/" + coin.id)}
                 >
                   <td className="rank">{coin.market_cap_rank}</td>
-
+                  <td>
+                    <button onClick={() => deleteCoin(coin.id)}>-</button>
+                  </td>
                   <td className="logo">
                     <div className="logodata">
                       <img src={coin.image} alt="logo" width="30px" />

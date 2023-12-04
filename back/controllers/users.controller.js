@@ -69,7 +69,6 @@ module.exports = {
     const userId = req.userId;
     console.log("userid:", userId);
     try {
-      // Find the user by ID in the database
       const user = await User.findById(userId);
       console.log("user data:", user);
       console.log("favorites before push:", user.favorites);
@@ -89,6 +88,17 @@ module.exports = {
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: userId });
+    }
+  },
+  deleteFavCoin: async (req, res) => {
+    const { coinId } = req.body.coinId;
+    const userId = req.userId;
+    try {
+      const user = await User.findById(userId);
+      user.favorites.splice(coinId, 1);
+      return res.status(200).json({ message: "Coin removed" });
+    } catch (error) {
+      res.status(500).json({ message: error });
     }
   },
   getFavorites: async (req, res) => {

@@ -8,4 +8,5 @@ module.exports = (app) => {
   app.post("/api/addToFavorites", authenticate, UsersController.addToFavorites);
   app.get("/api/favorites", authenticate, UsersController.getFavorites);
   app.get("/api/fetchfavorites", authenticate, UsersController.fetchFavorites);
+  app.post("/api/deleteFavCoin", authenticate, UsersController.deleteFavCoin);
 };
