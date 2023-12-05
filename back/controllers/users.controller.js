@@ -91,12 +91,17 @@ module.exports = {
     }
   },
   deleteFavCoin: async (req, res) => {
-    const { coinId } = req.body.coinId;
+    const { coinId } = req.body;
     const userId = req.userId;
+    console.log(coinId);
     try {
       const user = await User.findById(userId);
-      user.favorites.splice(coinId, 1);
-      return res.status(200).json({ message: "Coin removed" });
+      console.log(user);
+      user.favorites.splice(user.favorites.indexOf(coinId), 1);
+      console.log(user.favorites);
+      user.save();
+
+      return res.status(200).json("Coin removed");
     } catch (error) {
       res.status(500).json({ message: error });
     }

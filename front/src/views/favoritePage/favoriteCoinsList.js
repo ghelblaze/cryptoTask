@@ -2,23 +2,36 @@ import axios from "axios";
 import millify from "millify";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteFavCoin } from "../../../../back/controllers/users.controller";
 
 const FavoriteCoinsList = () => {
   const navigate = useNavigate();
   const [favCoinsData, setFavCoinsData] = useState([]);
   const [loadState, setLoadState] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const minus = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="16"
+      width="14"
+      viewBox="0 0 448 512"
+    >
+      <path
+        fill="#ce0d0d"
+        d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+      />
+    </svg>
+  );
   const deleteCoin = async (coinId) => {
     try {
-      const coinDeleted = async () =>
-        await axios.post(
-          "http://localhost:8000/api/deleteFavCoin",
-          {
-            coinId,
-          },
-          { withCredentials: true }
-        );
+      const coinDeleted = await axios.post(
+        "http://localhost:8000/api/deleteFavCoin",
+        {
+          coinId,
+        },
+        { withCredentials: true }
+      );
       console.log(coinDeleted.data);
+      setToggle(!toggle);
     } catch (error) {
       console.error("Error deleting Coin:", error);
     }
@@ -47,7 +60,7 @@ const FavoriteCoinsList = () => {
     };
 
     fetchFavoriteCoins();
-  }, []);
+  }, [toggle]);
 
   return (
     <div>
@@ -72,11 +85,11 @@ const FavoriteCoinsList = () => {
                 <tr
                   key={idx}
                   className="mb-2 tableRow"
-                  onClick={() => navigate("/coin/" + coin.id)}
+                  /* onClick={() => navigate("/coin/" + coin.id)} */
                 >
                   <td className="rank">{coin.market_cap_rank}</td>
                   <td>
-                    <button onClick={() => deleteCoin(coin.id)}>-</button>
+                    <div onClick={() => deleteCoin(coin.id)}>{minus}</div>
                   </td>
                   <td className="logo">
                     <div className="logodata">

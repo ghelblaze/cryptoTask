@@ -105,10 +105,3 @@ const CoinDetails = () => {
 };
 
 export default CoinDetails;
-/* dangerouslySetInnerHTML={{ __html: coin.description.en }} */
-{
-  /* <div className="container">
-  <p className={isCollapsed ? "collapse" : ""}>{coin.description.en} </p>
-  <button className="btn btn-primary" onClick={toggleCollapse}></button>
-</div>; */
-}
