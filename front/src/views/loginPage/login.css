@@ -1,8 +1,11 @@
 .field{
     position: relative;
-    margin-bottom: 10px;
+    
+    width: 80%;
+    margin: 10px auto;
 }
 .field input{
+    width: 100%;
     color: #565656;
     background:none;
     padding: 0.625rem;
@@ -14,7 +17,7 @@
 .field label{
     position: absolute;
     top: 0px;
-    left: 25%;
+    left: 0px;
     translate: 0.625rem 0.625rem;
     color: #030104;
     background-color: #212529;
